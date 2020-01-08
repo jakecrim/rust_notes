@@ -157,3 +157,49 @@ fn main() {
 // 	// will print out 20
 // 	println!("{}", x);
 // }
+
+//---------------------------------------------//
+//*** 			Guessing Game Program 		     ***
+//*** Info: Demonstrates usage of rand crate and ***
+//*** some basic error handling					 ***
+//---------------------------------------------//
+// use std::cmp::Ordering;
+// use std:: io;
+// use rand:: Rng;
+
+// fn main() {
+// 	// to learn how to use the crates, like rand, do cargo doc --open in the command line to open up documentation in your browser
+// 	let secret_num = rand::thread_rng().gen_range(1, 101);
+// 	loop {
+// 		println!("Guess the number!");
+
+// 		println!("Input your guess:");
+// 		// A new instance of a String, which is growable and UTF-8 encoded text
+// 		// '::' means new is an associated function of the String type, not the instance of the string. Similar to a static method in other languages.
+// 		let mut guess = String::new();
+
+// 		// calls read_line which takes in user input into guess, checks whether it returns err or ok, and depending on that it may or may not print out the failure message
+// 		// basically the expect part does some error checking right there, and will print the passed in err message and crash the program if err is returned from read_line
+// 		io::stdin().read_line(&mut guess)  
+// 		.expect("Failed to read");	//NOTE: will default to type i32
+
+// 		//						trim eliminates new lines and whitespaces that might exist in the string we are attempting to cast to an u32
+// 		let guess: u32 = match guess.trim().parse() {
+// 			Ok(num) => num,
+// 			Err(_)=> continue,	//the '_' is a catchall val that will continue if parse's result type return val is Err
+// 		};
+
+// 		println!("User guessed: {}", guess );
+
+// 		match guess.cmp(&secret_num){
+// 			Ordering::Less => println!("Too small!"),
+// 			Ordering::Greater => println!("Too large!"),
+// 			Ordering::Equal => 
+// 			{
+// 				println!("Correct!");
+// 				break;
+// 			}
+// 		}
+// 	}
+
+// }
