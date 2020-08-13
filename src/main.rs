@@ -1,17 +1,48 @@
 // Rust notes
 
 fn main () {
-	let x = String::from("Hey there");
-
-	first_word(&x);
+	let mut x = String::from("Hey there");
+	let mut y = String::from("Hello dawg woof");
+	println!("{}",first_word(&x));
+	println!("{}",second_word(&y));
 }
 
-fn first_word(x : &String) -> usize {
+fn first_word(x : &String) -> &str {
 	let bytes = x.as_bytes();
-	println!("{:?}", bytes);
 
-	1
+	for (i, &item) in bytes.iter().enumerate() {
+		if item == b' ' {
+			return &x[0..i];
+		}
+	}
+
+	&x[..]
 }
+
+fn second_word(x : &String) -> &str {
+	let mut bytes = x.as_bytes();
+
+	for (i, &item) in bytes.iter().enumerate() {
+		if item == b' '{
+			let y = &x[i+1..];
+			bytes = y.as_bytes();
+
+			for (i, &item) in bytes.iter().enumerate() {
+				if item == b' ' {
+					return &y[0..i];
+				}
+			}
+			// Return this IF there were only two words.
+			return &y[..];
+		}
+	}
+
+	&x[..]
+}
+
+
+
+
 //__________________________________________________________________________________________________________ //
 
 //--------------------------------------------------//
@@ -52,8 +83,8 @@ fn first_word(x : &String) -> usize {
 	// 	let f: bool = false; // with explicit type annotation
 	// }
 // 7. Tuples AND Arrays are fixed length.
-// 8. Arrays allocate to stack instead of the heap, are used  instead of vectors when you KNOW the num of elements wont need to change, like an array
-//    containing the days of the week.
+// 8. Arrays allocate to stack instead of the heap, are used instead of vectors when you KNOW the num of elements wont need to change, like an array
+//    containing the days of the week.  
 // 9.  Functions can be defined anywhere in the program.
 // 10. In rust cannot do statements like: x = y = 6
 // 11. *IMPORTANT* Expressions (return something) lines do not contain a semi colon. Statements(return NOTHING) DO have a semi colon.
@@ -426,4 +457,50 @@ fn first_word(x : &String) -> usize {
 // 	}
 // 	return fib_num(x-1) + fib_num(x-2);
 
+// }
+//
+//__________________________________________________________________________________________________________ //
+//
+//---------------------------------------------------------------------------------------//
+//*** SLICES: example, return first word in string, and second word in string function ***
+//--------------------------------------------------------------------------------------//
+//
+// fn main () {
+// 	let mut x = String::from("Hey there");
+// 	let mut y = String::from("Hello dawg woof");
+// 	println!("{}",first_word(&x));
+// 	println!("{}",second_word(&y));
+// }
+
+// fn first_word(x : &String) -> &str {
+// 	let bytes = x.as_bytes();
+
+// 	for (i, &item) in bytes.iter().enumerate() {
+// 		if item == b' ' {
+// 			return &x[0..i];
+// 		}
+// 	}
+
+// 	&x[..]
+// }
+
+// fn second_word(x : &String) -> &str {
+// 	let mut bytes = x.as_bytes();
+
+// 	for (i, &item) in bytes.iter().enumerate() {
+// 		if item == b' '{
+// 			let y = &x[i+1..];
+// 			bytes = y.as_bytes();
+
+// 			for (i, &item) in bytes.iter().enumerate() {
+// 				if item == b' ' {
+// 					return &y[0..i];
+// 				}
+// 			}
+// 			// Return this IF there were only two words.
+// 			return &y[..];
+// 		}
+// 	}
+
+// 	&x[..]
 // }
